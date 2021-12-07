@@ -5,7 +5,6 @@ backend for the covid dashboard
 import time
 import json
 import logging
-import pytest
 from flask import Flask, request
 from flask.templating import render_template
 from werkzeug.utils import redirect

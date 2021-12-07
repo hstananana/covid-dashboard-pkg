@@ -12,7 +12,6 @@ def test_process_covid_csv_data():
     last7days_cases , current_hospital_cases , total_deaths = \
         process_covid_csv_data ( parse_csv_data (
             'nation_2021-10-28.csv' ) )
-    print(last7days_cases, current_hospital_cases, total_deaths)
     assert last7days_cases == 240_299
     assert current_hospital_cases == 7_019
     assert total_deaths == 141_544
@@ -24,5 +23,3 @@ def test_covid_API_request():
 def test_schedule_covid_updates():
     schedule_covid_updates(update_interval=10, update_name='update test')
 
-x = test_covid_API_request()
-y = test_schedule_covid_updates()
