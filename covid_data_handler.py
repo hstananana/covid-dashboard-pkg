@@ -195,7 +195,7 @@ for line in reversed(open("logfile.log").readlines()):
                 if hhmm_to_seconds(update_time) < current_time:
                     update_interval = (
                         86400+hhmm_to_seconds(update_time) - current_time)
-                    logging.info('Will happen tomorrow at %',
+                    logging.info('Will happen tomorrow at %s',
                                  str(update_time))
                 else:
                     update_interval = (hhmm_to_seconds(
