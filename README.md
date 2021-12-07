@@ -4,7 +4,7 @@ This is a Covid-19 dashboard designed to give the user local and national Covid 
 
 # Installation
 
-Install flask (see here: https://flask.palletsprojects.com/en/2.0.x/installation/). Download and extract the files from this repositry. Get a news api key by signing up for a free news api account here: https://newsapi.org/. Add that to the config.json.
+Install flask (see here: https://flask.palletsprojects.com/en/2.0.x/installation/). Download and extract the files from this repositry. Get a news api key by signing up for a free news api account here: https://newsapi.org/. Add that to the config.json using double quote marks (").
 
 # Usage
 
