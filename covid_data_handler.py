@@ -148,13 +148,13 @@ def schedule_covid_updates(update_interval, update_name, repeat=False):
     '''
     Schedule an update to happen in update_interval seconds
     '''
-    logging.info('Schedule for '+update_name+' successful')
+    logging.info('Schedule successful for %s' % update_name)
     e1 = s.enter(update_interval, 1, update_covid)
     e2 = s.enter(update_interval, 2, repeat_if_applicable,
                  argument=(update_name, repeat))
 
     if cancelled.get(update_name) == True:  # don't run the update if its been cancelled
-        logging.info(update_name+' has been cancelled')
+        logging.info('Cancelled %s' % update_name)
         s.cancel(e1)
         s.cancel(e2)
     s.run(blocking=False)
@@ -191,7 +191,7 @@ for line in reversed(open("logfile.log").readlines()):
                     repeat = True
                 else:
                     repeat = False
-                logging.info('Update name is '+update_name)
+                logging.info('Update name is %s' % update_name)
                 current_time = hhmm_to_seconds(
                     time.strftime('%H:%M', time.localtime()))
                 if hhmm_to_seconds(update_time) < current_time:
@@ -201,8 +201,8 @@ for line in reversed(open("logfile.log").readlines()):
                 else:
                     update_interval = (hhmm_to_seconds(
                         update_time) - current_time)
-                    logging.info('Will occur in ' +
-                                 str(update_interval) + ' seconds')
+                    logging.info('Seconds before update: %s ' %
+                                 str(update_interval))
                 if update['update_covid'] != 'None':
                     schedule_covid_updates(
                         update_interval, update_name, repeat)
