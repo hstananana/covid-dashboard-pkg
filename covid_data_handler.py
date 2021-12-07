@@ -27,7 +27,6 @@ updates = []
 cancelled = {}
 
 
-
 def minutes_to_seconds(minutes: str) -> int:
     '''
     Convert minutes to seconds
@@ -103,8 +102,9 @@ def covid_API_request(location='Exeter', location_type='ltla'):
         json_data = api.get_json(as_string=True)
         api_dict = json.loads(json_data)
     except:
-        logging.error('Failed to get covid data. Please check you are connected to the internet')
-        exit()
+        logging.error(
+            'Failed to get covid data. Please check you are connected to the internet')
+        raise ConnectionError
     return api_dict
 
 
@@ -117,30 +117,28 @@ def process_covid_API(covid_api_data):
     for number in range(0, 6):
         data_for_date = json_file[number]
         last7days_cases += data_for_date['newCasesByPublishDate']
-    if last7days_cases == None:
+    if last7days_cases is None:
         last7days_cases = 0
     # There is a 5-day delay for hospital cases to be reported
     current_hospital_cases = json_file[5]['hospitalCases']
-    if current_hospital_cases == None:
+    if current_hospital_cases is None:
         current_hospital_cases = 0
     total_deaths = json_file[0]['cumDeaths28DaysByPublishDate']
-    if total_deaths == None:
+    if total_deaths is None:
         total_deaths = 0
     return last7days_cases, current_hospital_cases, total_deaths
+
 
 def repeat_if_applicable(update_name, repeat):
     '''
     if repeat is true, schedule the update for the same time the next day.
     if it is not, then remove the update from the list
     '''
-    if repeat == True:
+    if repeat is True:
         schedule_covid_updates(86400, update_name, repeat)
     else:
         for update in updates:
             if update['title'] == update_name:
-                '''
-                remove the update from the list of updates
-                '''
                 updates.remove(update)
 
 
@@ -148,13 +146,13 @@ def schedule_covid_updates(update_interval, update_name, repeat=False):
     '''
     Schedule an update to happen in update_interval seconds
     '''
-    logging.info('Schedule successful for %s' % update_name)
+    logging.info('Schedule successful for %s', update_name)
     e1 = s.enter(update_interval, 1, update_covid)
     e2 = s.enter(update_interval, 2, repeat_if_applicable,
                  argument=(update_name, repeat))
 
-    if cancelled.get(update_name) == True:  # don't run the update if its been cancelled
-        logging.info('Cancelled %s' % update_name)
+    if cancelled.get(update_name):  # don't run the update if its been cancelled
+        logging.info('Cancelled %s', update_name)
         s.cancel(e1)
         s.cancel(e2)
     s.run(blocking=False)
@@ -191,17 +189,18 @@ for line in reversed(open("logfile.log").readlines()):
                     repeat = True
                 else:
                     repeat = False
-                logging.info('Update name is %s' % update_name)
+                logging.info('Update name is %s', update_name)
                 current_time = hhmm_to_seconds(
                     time.strftime('%H:%M', time.localtime()))
                 if hhmm_to_seconds(update_time) < current_time:
                     update_interval = (
                         86400+hhmm_to_seconds(update_time) - current_time)
-                    logging.info('Will happen tomorrow at,' + str(update_time))
+                    logging.info('Will happen tomorrow at %',
+                                 str(update_time))
                 else:
                     update_interval = (hhmm_to_seconds(
                         update_time) - current_time)
-                    logging.info('Seconds before update: %s ' %
+                    logging.info('Seconds before update: %s ',
                                  str(update_interval))
                 if update['update_covid'] != 'None':
                     schedule_covid_updates(
