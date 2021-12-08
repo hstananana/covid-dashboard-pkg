@@ -6,9 +6,13 @@ This is a Covid-19 dashboard designed to give the user local and national Covid 
 
 Install flask (see here: https://flask.palletsprojects.com/en/2.0.x/installation/). Download and extract the files from this repositry. Get a news api key by signing up for a free news api account here: https://newsapi.org/. Add that to the config.json using double quote marks (").
 
-# Usage
+# Getting Started
 
 Run app.py. This launches an internal server at http://127.0.0.1:5000/. You can schedule updates for the covid data and for the news updates with the timer. Please use a unique name for each update.
+
+# Testing
+
+This project has testing modules that can be run with pytest. The installation instructions can be found here: https://docs.pytest.org/en/6.2.x/getting-started.html. To test the code, run pytest in the program's directory
 
 # Licence
 
