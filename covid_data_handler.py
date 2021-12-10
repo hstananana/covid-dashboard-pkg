@@ -142,22 +142,6 @@ def repeat_if_applicable(update_name, repeat):
                 updates.remove(update)
 
 
-def schedule_covid_updates(update_interval, update_name, repeat=False):
-    '''
-    Schedule an update to happen in update_interval seconds
-    '''
-    logging.info('Schedule successful for %s', update_name)
-    e1 = s.enter(update_interval, 1, update_covid)
-    e2 = s.enter(update_interval, 2, repeat_if_applicable,
-                 argument=(update_name, repeat))
-
-    if cancelled.get(update_name):  # don't run the update if its been cancelled
-        logging.info('Cancelled %s', update_name)
-        s.cancel(e1)
-        s.cancel(e2)
-    s.run(blocking=False)
-
-
 def update_covid():
     '''
     Update the covid data
@@ -168,6 +152,22 @@ def update_covid():
     national_data = covid_API_request('United Kingdom', 'overview')
     national_7day_infections, hospital_cases, deaths_total = process_covid_API(
         national_data)
+
+
+def schedule_covid_updates(update_interval, update_name, repeat=False):
+    '''
+    Schedule an update to happen in update_interval seconds
+    '''
+    logging.info('Schedule successful for %s', update_name)
+    event_1 = s.enter(update_interval, 1, update_covid)
+    event_2 = s.enter(update_interval, 2, repeat_if_applicable,
+                 argument=(update_name, repeat))
+
+    if cancelled.get(update_name):  # don't run the update if its been cancelled
+        logging.info('Cancelled %s', update_name)
+        s.cancel(event_1)
+        s.cancel(event_2)
+    s.run(blocking=False)
 
 
 for line in reversed(open("logfile.log").readlines()):

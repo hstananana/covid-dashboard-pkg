@@ -121,15 +121,15 @@ def schedule_news_updates(interval, name, update_repeat=False):
     Schedule news updates for a given interval
     '''
     logging.info('Schedule for '+name+' successful')
-    e1 = s.enter(interval, 1, remove_seen_articles)
-    e2 = s.enter(interval, 2, update_news, argument=name)
-    e3 = s.enter(interval, 3, repeat_if_applicable,
+    event_1 = s.enter(interval, 1, remove_seen_articles)
+    event_2 = s.enter(interval, 2, update_news, argument=name)
+    event_3 = s.enter(interval, 3, repeat_if_applicable,
                 argument=(name, update_repeat))
 
     if covid_data_handler.cancelled.get(name) == True:
-        s.cancel(e1)
-        s.cancel(e2)
-        s.cancel(e3)
+        s.cancel(event_1)
+        s.cancel(event_2)
+        s.cancel(event_3)
 
     s.run(blocking=False)
 
