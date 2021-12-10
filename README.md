@@ -11,6 +11,10 @@ Install flask (see here: https://flask.palletsprojects.com/en/2.0.x/installation
 
 Run app.py. This launches an internal server at http://127.0.0.1:5000/. You can schedule updates for the covid data and for the news updates with the timer. Please use a unique name for each update.
 
+# Developer documentation
+
+Full information about each function is provided in the function docstrings. The file 'covid_data_handler.py' contains variables and functions for the covid data. The file 'covid_news_handling.py' contains variables and functions for importing news articles.
+
 # Testing
 
 This project has testing modules that can be run with pytest. The installation instructions can be found here: https://docs.pytest.org/en/6.2.x/getting-started.html. To test the code, run pytest in the program's directory
