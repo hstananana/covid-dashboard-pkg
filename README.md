@@ -2,6 +2,20 @@
 
 This is a Covid-19 dashboard designed to give the user local and national Covid data, news articles, and allow the user to schedule when the data is updated. Whilst it has been designed with Covid news articles in mind, the config.json can be configured to request different keywords
 
+# Prerequisites
+
+This project requires the following python packages to be installed:
+ time
+ json
+ logging
+ flask
+ csv
+ sched
+ uk-covid19 
+ requests
+
+Requires Rython 3.9
+
 # Installation
 
 Install flask (see here: https://flask.palletsprojects.com/en/2.0.x/installation/). Download and extract the files from the GitHub repository (https://github.com/hstananana/covid-dashboard-pkg). Get a news api key by signing up for a free news api account here: https://newsapi.org/. Add that to the config.json using double quote marks (").
