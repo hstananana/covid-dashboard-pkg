@@ -4,11 +4,8 @@ This is a Covid-19 dashboard designed to give the user local and national Covid 
 
 # Installation
 
-<<<<<<< HEAD
 Install flask (see here: https://flask.palletsprojects.com/en/2.0.x/installation/). Download and extract the files from the GitHub repository (https://github.com/hstananana/covid-dashboard-pkg). Get a news api key by signing up for a free news api account here: https://newsapi.org/. Add that to the config.json using double quote marks (").
-=======
-Install flask (see here: https://flask.palletsprojects.com/en/2.0.x/installation/). Download and extract the files from this repositry. Get a news api key by signing up for a free news api account here: https://newsapi.org/. Add that to the config.json using double quote marks (").
->>>>>>> cf2b10c44d4d880ba4ee54ba97bb37c199b7a899
+
 
 # Getting Started
 
@@ -20,8 +17,5 @@ This project has testing modules that can be run with pytest. The installation i
 
 # Licence
 
-<<<<<<< HEAD
 Licenced under MIT
-=======
-Licenced under MIT
->>>>>>> cf2b10c44d4d880ba4ee54ba97bb37c199b7a899
+
